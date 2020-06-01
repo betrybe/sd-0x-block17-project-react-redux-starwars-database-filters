@@ -21,7 +21,7 @@ jobs:
         uses: betrybe/react-scripts-evaluator-action@v3
         if: steps.wait-for-build.outputs.conclusion == 'success'
         with:
-          repository-test-name: 'betrybe/sd-0x-block17-project-react-redux-starwars-database-filters'
+          repository-test-name: 'betrybe/sd-0x-block17-project-react-redux-starwars-database-filters-tests'
           repository-test-branch: 'master'
       - name: Store evaluation step
         uses: betrybe/store-evaluation-action@v2
