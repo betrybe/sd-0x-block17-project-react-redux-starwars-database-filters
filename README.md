@@ -48,7 +48,7 @@ A combinação desses três seletores deve filtrar os dados da tabela de acordo 
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name },filterBynumericValues: [{ column, comparison, value }] }`. Por exemplo:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Por exemplo:
 
 ```javascript
 {
@@ -79,7 +79,7 @@ Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior 
 {
   filters: {
     filterByName: {
-      value: ''
+      name: ''
     },
     filterByNumericValues: [
       {
@@ -112,10 +112,10 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 {
   filters: {
     filterByName: {
-      value: ''
+      name: ''
     },
     filterByNumericValues : [],
-    order:{
+    order: {
       column: 'Name',
       sort: 'ASC',
     }
