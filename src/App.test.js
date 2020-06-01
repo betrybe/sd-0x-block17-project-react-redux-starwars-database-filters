@@ -27,7 +27,7 @@ const mockFetch = () => {
   global.fetch = jest.fn(() => apiResponse);
 }
 
-describe('1 - checks the API call', () => {
+describe('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -76,7 +76,7 @@ describe('1 - checks the API call', () => {
 
 })
 
-describe('2 - checks name filter', () => {
+describe('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -123,7 +123,7 @@ describe('2 - checks name filter', () => {
   })
 })
 
-describe('3 - checks the numeric filters', () => {
+describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -261,7 +261,7 @@ describe('3 - checks the numeric filters', () => {
 
 })
 
-describe('4 - checks the numeric filters usage', () => {
+describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
   test('check avaiable filters', async () => {
     const { findByTestId } = renderApp();
 
@@ -282,7 +282,7 @@ describe('4 - checks the numeric filters usage', () => {
   })
 })
 
-describe('5 - checks the filter removal', () => {
+describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
@@ -305,7 +305,7 @@ describe('5 - checks the filter removal', () => {
   });
 })
 
-describe('6 - checks the table sorting', () => {
+describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
     for(let planet of testData.results) {
