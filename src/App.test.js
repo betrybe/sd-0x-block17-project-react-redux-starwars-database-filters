@@ -27,7 +27,7 @@ const mockFetch = () => {
   global.fetch = jest.fn(() => apiResponse);
 }
 
-describe('Requisite 1', () => {
+describe('1 - checks the API call', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -76,7 +76,7 @@ describe('Requisite 1', () => {
 
 })
 
-describe('Requisite 2', () => {
+describe('2 - checks name filter', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -123,7 +123,7 @@ describe('Requisite 2', () => {
   })
 })
 
-describe('Requisite 3', () => {
+describe('3 - checks the numeric filters', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -261,7 +261,7 @@ describe('Requisite 3', () => {
 
 })
 
-describe('Requisite 4', () => {
+describe('4 - checks the numeric filters usage', () => {
   test('check avaiable filters', async () => {
     const { findByTestId } = renderApp();
 
@@ -282,7 +282,7 @@ describe('Requisite 4', () => {
   })
 })
 
-describe('Requisite 5', () => {
+describe('5 - checks the filter removal', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
@@ -305,7 +305,7 @@ describe('Requisite 5', () => {
   });
 })
 
-describe('Requisite 6', () => {
+describe('6 - checks the table sorting', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
     for(let planet of testData.results) {
