@@ -123,7 +123,7 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 }
 ```
 
-O campo de seleção deve ser uma tag `select` com a propriedade `data-testid='column-sort'`, com as opções dos campos em seu interior. Deve haver também um botão para submeter a ordenação, uma tag `button` com a propriedade `data-testid='column-sort-button'`.
+O campo de seleção deve ser uma tag `select` com a propriedade `data-testid='column-sort'`, com as opções dos campos em seu interior. Deve haver também, duas `inputs` de tipo `radio`, com propriedade `column-sort-input`, para definir o sentido da ordenação (com `value`, `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
 
 Cada requisito mostra em seu exemplo somente os campos do estado relacionados àquele requisito. O resultado final acumulará campos dos vários exemplos.
 
