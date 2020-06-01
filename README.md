@@ -1,4 +1,4 @@
-# Boas vindas ao repositório do projeto de Testes em React!
+# Boas vindas ao repositório do projeto de StarWars Datatable Filters em React com Redux!
 
 Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
 
@@ -6,18 +6,19 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 ## O que deverá ser desenvolvido
 
-Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá de uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi.co/documentation) real. Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
+Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá de uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi-trybe.herokuapp.com/api). Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
 
 ## Desenvolvimento
 
-Este repositório já contém um _template_ de uma aplicação React criado e configurado. Após clonar o projeto e instalar as dependências (mais sobre isso abaixo), você não precisará realizar nenhuma configuração adicional. Leia a documentação da [SWAPI](https://swapi.co/documentation) para entender seu funcionamento.
+Este repositório já contém um _template_ de uma aplicação React criado e configurado. Após clonar o projeto e instalar as dependências (mais sobre isso abaixo), você não precisará realizar nenhuma configuração adicional.
 
 ## Requisitos do projeto
 
 ### 1 - Fazer uma requisição para o endpoint `/planets` da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna `residents`
 
 A tabela deve ser renderizada por um componente chamado `<Table />`. Os dados recebidos da API devem ser salvos num campo chamado `data` do `store` e é daí que a tabela deve lê-los. A requisição deve ser feita num componente separado do componente da tabela.
-A tabela deve ter uma primeira `row` com os headers e as demais com as informações de cada campo.
+
+A tabela deve ter uma primeira linha com os headers e as demais com as informações de cada campo.
 
 ### 2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado
 
@@ -41,8 +42,8 @@ Ele funcionará com três seletores:
 
   - O primeiro deve abrir um dropdown que permita a quem usa selecionar uma das seguintes colunas: `population`, `orbital_period`, `diameter`, `rotation_period` e `surface_water`. Deve ser uma tag `select` com a propriedade `data-testid='column-filter'`;
   - O segundo deve determinar se a faixa de valor será `Maior que`, `Menor que` ou `Igual a` o numero que virá a seguir. Uma tag `select` com a propriedade `data-testid='comparison-filter'`;
-  - O terceiro deve ser uma caixa de texto que só aceita números. Uma tag `input` com a propriedade `data-testid='value-filter'`;
-  - Deve haver um botão para submeter o filtro, com a propriedade `data-testid='button-filter'`.
+  - O terceiro deve ser uma caixa de texto que só aceita números. Essa caixa deve ser uma tag `input` com a propriedade `data-testid='value-filter'`;
+  - Deve haver um botão para acionar o filtro, com a propriedade `data-testid='button-filter'`.
 
 A combinação desses três seletores deve filtrar os dados da tabela de acordo com a coluna correspondente e com os valores escolhidos. Por exemplo:
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
@@ -123,9 +124,9 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 }
 ```
 
-O campo de seleção deve ser uma tag `select` com a propriedade `data-testid='column-sort'`, com as opções dos campos em seu interior. Deve haver também, duas `inputs` de tipo `radio`, com propriedade `column-sort-input`, para definir o sentido da ordenação (com `value`, `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
+Essa ordenação deve ser feita via filtro: um dropdown selecionará a coluna a basear a ordenação e um par de radio buttons determinará se esta é ascendente ou descendente.
 
-Cada requisito mostra em seu exemplo somente os campos do estado relacionados àquele requisito. O resultado final acumulará campos dos vários exemplos.
+O dropdown deve ser uma elemento `select` com a propriedade `data-testid='column-sort'`, com as opções das colunas escolhíveis em seu interior. Deve haver também, dois `inputs` de tipo `radio`, com propriedade `data-testid='column-sort-input'`, para definir o sentido da ordenação (com `value` sendo `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
 
 ---
 
@@ -134,9 +135,9 @@ Cada requisito mostra em seu exemplo somente os campos do estado relacionados à
 ### ANTES DE COMEÇAR A DESENVOLVER:
 
 1. Clone o repositório
-  * `git clone git@github.com:tryber/sd-0x-block17-react-redux-starwars-datatable-filters.git`.
+  * `git clone git@github.com:tryber/sd-03-block17-react-redux-starwars-datatable-filters.git`.
   * Entre na pasta do repositório que você acabou de clonar:
-    * `sd-0x-block17-react-redux-starwars-datatable-filters`
+    * `sd-03-block17-react-redux-starwars-datatable-filters`
 
 2. Instale as dependências
   * `npm install`
@@ -200,13 +201,13 @@ export default App;
   * Usando o exemplo anterior: `git push -u origin joaozinho-react-testing`
 
 7. Crie um novo `Pull Request` _(PR)_
-  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-0x-block17-react-redux-starwars-datatable-filters/pulls)
+  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-03-block17-react-redux-starwars-datatable-filters/pulls)
   * Clique no botão verde _"New pull request"_
   * Clique na caixa de seleção _"Compare"_ e escolha a sua branch **com atenção**
   * Clique no botão verde _"Create pull request"_
   * Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
   * **Não se preocupe em preencher mais nada por enquanto!**
-  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-0x-block17-react-redux-starwars-datatable-filters/pulls) e confira que o seu _Pull Request_ está criado
+  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-03-block17-react-redux-starwars-datatable-filters/pulls) e confira que o seu _Pull Request_ está criado
 
 ---
 
@@ -227,14 +228,14 @@ export default App;
 
 ---
 
-### DEPOIS DE TERMINAR O DESENVOLVIMENTO
+### DEPOIS DE TERMINAR O DESENVOLVIMENTO (OPCIONAL)
 
 Para **"entregar"** seu projeto, siga os passos a seguir:
 
 * Vá até a página **DO SEU** _Pull Request_, adicione a label de _"code-review"_ e marque seus colegas
   * No menu à direita, clique no _link_ **"Labels"** e escolha a _label_ **code-review**
   * No menu à direita, clique no _link_ **"Assignees"** e escolha **o seu usuário**
-  * No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-0x`
+  * No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-03`
 
 Se ainda houver alguma dúvida sobre como entregar seu projeto, [aqui tem um video explicativo](https://vimeo.com/362189205).
 
