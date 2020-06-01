@@ -17,46 +17,55 @@ Este repositório já contém um _template_ de uma aplicação React criado e co
 ### 1 - Fazer uma requisição para o endpoint `/planets` da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna `residents`
 
 A tabela deve ser renderizada por um componente chamado `<Table />`. Os dados recebidos da API devem ser salvos num campo chamado `data` do `store` e é daí que a tabela deve lê-los. A requisição deve ser feita num componente separado do componente da tabela.
+A tabela deve ter uma primeira `row` com os headers e as demais com as informações de cada campo.
 
 ### 2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado
 
-Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: [{ name }]`. Por exemplo:
+Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: { filterByName: { name } }`. Por exemplo:
 
 ```javascript
 {
-  filters: [
-    {
-      name: 'Tatoo',
+  filters: {
+    filterByName: {
+      name: 'Tatoo'
     }
-  ]
+  }
 }
 ```
+
+O campo de texto deve possuir a propriedade `data-testid='name-filter'` para que a avaliação automatizada funcione.
 
 ### 3 - Sua página deve ter um filtro para valores numéricos
 
 Ele funcionará com três seletores:
 
-  - O primeiro deve abrir um dropdown que permita a quem usa selecionar uma das seguintes colunas: `population`, `orbital_period`, `diameter`, `rotation_period` e `surface_water`.
-  - O segundo deve determinar se a faixa de valor será `Maior que`, `Menor que` ou `Igual a` o numero que virá a seguir.
-  - O terceiro deve ser uma caixa de texto que só aceita números.
+  - O primeiro deve abrir um dropdown que permita a quem usa selecionar uma das seguintes colunas: `population`, `orbital_period`, `diameter`, `rotation_period` e `surface_water`. Deve ser uma tag `select` com a propriedade `data-testid='column-filter'`;
+  - O segundo deve determinar se a faixa de valor será `Maior que`, `Menor que` ou `Igual a` o numero que virá a seguir. Uma tag `select` com a propriedade `data-testid='comparison-filter'`;
+  - O terceiro deve ser uma caixa de texto que só aceita números. Uma tag `input` com a propriedade `data-testid='value-filter'`;
+  - Deve haver um botão para submeter o filtro, com a propriedade `data-testid='button-filter'`.
 
 A combinação desses três seletores deve filtrar os dados da tabela de acordo com a coluna correspondente e com os valores escolhidos. Por exemplo:
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters [{ numericValues: { column, comparison, value } }]`. Por exemplo:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name },filterBynumericValues: [{ column, comparison, value }] }`. Por exemplo:
 
 ```javascript
 {
-  filters: [
+  filters:
     {
-      numericValues: {
-        column: 'population',
-        comparison: 'maior que',
-        value: '100000',
-      }
+      filterByName: {
+        name: ''
+      },
+      filterByNumericValues: [
+        {
+          column: 'population',
+          comparison: 'maior que',
+          value: '100000',
+        }
+      ]
     }
-  ]
+  }
 }
 ```
 
@@ -68,46 +77,53 @@ Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior 
 
 ```javascript
 {
-  filters: [
-    {
-      numericValues: {
+  filters: {
+    filterByName: {
+      value: ''
+    },
+    filterByNumericValues: [
+      {
         column: 'population',
         comparison: 'maior que',
         value: '100000',
-      }
-    },
-    {
-      numericValues: {
+      },
+      {
         column: 'diameter',
         comparison: 'menor que',
         value: '8000',
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 
 
 ### 5 - Cada filtro de valores numéricos deve ter um ícone de `X` que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela
 
-A coluna que este filtro selecionava deve passar a ficar disponível nos dropdowns dos demais filtros já presentes na tela. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
+A coluna que este filtro selecionava deve passar a ficar disponível nos dropdowns dos demais filtros já presentes na tela. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. Cada filtro deve possuir a propriedade `data-testid='filter'`, com um `button` em seu interior com o texto `X`.
 
 ## BÔNUS
 
 ### 6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente
 
-A informação acerca da ordenação das colunas deve ser armazenada nos campos `filters: [{ column: 'Name', order: 'ASC'}]`, o campo column representa o nome da coluna a ordenar e a ordem representa a ordenação, sendo 'ASC' ascendente e 'DESC' descendente. Por padrão, a tabela começa ordenada pela coluna 'Name' em ordem ascendente. Por exemplo:
+A informação acerca da ordenação das colunas deve ser armazenada nos campos `filters: { filterByName: { name }, filterByNumericValues = [], order: { column: 'Name', sort: 'ASC'} }`, o campo column representa o nome da coluna a ordenar e a ordem representa a ordenação, sendo 'ASC' ascendente e 'DESC' descendente. Por padrão, a tabela começa ordenada pela coluna 'Name' em ordem ascendente. Por exemplo:
 
 ```javascript
 {
-  filters: [
-    {
+  filters: {
+    filterByName: {
+      value: ''
+    },
+    filterByNumericValues : [],
+    order:{
       column: 'Name',
-      order: 'ASC',
+      sort: 'ASC',
     }
-  ]
+  }
 }
 ```
+
+O campo de seleção deve ser uma tag `select` com a propriedade `data-testid='column-sort'`, com as opções dos campos em seu interior. Deve haver também um botão para submeter a ordenação, uma tag `button` com a propriedade `data-testid='column-sort-button'`.
 
 Cada requisito mostra em seu exemplo somente os campos do estado relacionados àquele requisito. O resultado final acumulará campos dos vários exemplos.
 
@@ -118,9 +134,9 @@ Cada requisito mostra em seu exemplo somente os campos do estado relacionados à
 ### ANTES DE COMEÇAR A DESENVOLVER:
 
 1. Clone o repositório
-  * `git clone git@github.com:tryber/sd-02-block16-react-redux-starwars-datatable-filters.git`.
+  * `git clone git@github.com:tryber/sd-0x-block17-react-redux-starwars-datatable-filters.git`.
   * Entre na pasta do repositório que você acabou de clonar:
-    * `sd-02-block16-react-redux-starwars-datatable-filters`
+    * `sd-0x-block17-react-redux-starwars-datatable-filters`
 
 2. Instale as dependências
   * `npm install`
@@ -184,13 +200,13 @@ export default App;
   * Usando o exemplo anterior: `git push -u origin joaozinho-react-testing`
 
 7. Crie um novo `Pull Request` _(PR)_
-  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-02-block16-react-redux-starwars-datatable-filters/pulls)
+  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-0x-block17-react-redux-starwars-datatable-filters/pulls)
   * Clique no botão verde _"New pull request"_
   * Clique na caixa de seleção _"Compare"_ e escolha a sua branch **com atenção**
   * Clique no botão verde _"Create pull request"_
   * Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
   * **Não se preocupe em preencher mais nada por enquanto!**
-  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-02-block16-react-redux-starwars-datatable-filters/pulls) e confira que o seu _Pull Request_ está criado
+  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-0x-block17-react-redux-starwars-datatable-filters/pulls) e confira que o seu _Pull Request_ está criado
 
 ---
 
@@ -218,7 +234,7 @@ Para **"entregar"** seu projeto, siga os passos a seguir:
 * Vá até a página **DO SEU** _Pull Request_, adicione a label de _"code-review"_ e marque seus colegas
   * No menu à direita, clique no _link_ **"Labels"** e escolha a _label_ **code-review**
   * No menu à direita, clique no _link_ **"Assignees"** e escolha **o seu usuário**
-  * No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-02`
+  * No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-0x`
 
 Se ainda houver alguma dúvida sobre como entregar seu projeto, [aqui tem um video explicativo](https://vimeo.com/362189205).
 
