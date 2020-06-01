@@ -91,39 +91,39 @@ describe('Requisite 2', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('should have a input field for name filters', () => {
-    const { getByTestId } = renderApp();
-    const filterField = getByTestId('name-filter');
+  test('should have a input field for name filters', async () => {
+    const { findByTestId } = renderApp();
+    const filterField = await findByTestId('name-filter');
     expect(filterField).toBeInTheDocument();
   })
 
   test('input filter should change results', async () => {
-    const { findAllByRole , getByTestId, getByText } = renderApp();
-    const filterField = getByTestId('name-filter');
+    const { findAllByRole , findByTestId, findByText } = renderApp();
+    const filterField = await findByTestId('name-filter');
 
     fireEvent.change(filterField, {target: { value: 'o' }});
     let tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(8);
-    expect(getByText('Coruscant')).toBeInTheDocument();
-    expect(getByText('Dagobah')).toBeInTheDocument();
-    expect(getByText('Endor')).toBeInTheDocument();
-    expect(getByText('Hoth')).toBeInTheDocument();
-    expect(getByText('Kamino')).toBeInTheDocument();
-    expect(getByText('Naboo')).toBeInTheDocument();
-    expect(getByText('Tatooine')).toBeInTheDocument();
+    expect(await findByText('Coruscant')).toBeInTheDocument();
+    expect(await findByText('Dagobah')).toBeInTheDocument();
+    expect(await findByText('Endor')).toBeInTheDocument();
+    expect(await findByText('Hoth')).toBeInTheDocument();
+    expect(await findByText('Kamino')).toBeInTheDocument();
+    expect(await findByText('Naboo')).toBeInTheDocument();
+    expect(await findByText('Tatooine')).toBeInTheDocument();
 
     fireEvent.change(filterField, {target: { value: 'oo' }});
     tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(3);
-    expect(getByText('Naboo')).toBeInTheDocument();
-    expect(getByText('Tatooine')).toBeInTheDocument();
+    expect(await findByText('Naboo')).toBeInTheDocument();
+    expect(await findByText('Tatooine')).toBeInTheDocument();
 
     fireEvent.change(filterField, {target: { value: '' }});
   })
 
-  test('should change store filter values', () => {
-    const { getByTestId } = renderApp();
-    const filterField = getByTestId('name-filter');
+  test('should change store filter values', async () => {
+    const { findByTestId } = renderApp();
+    const filterField = await findByTestId('name-filter');
     fireEvent.change(filterField, {target: { value: 'o' }});
     expect(store.getState().filters.filterByName.value).toEqual('o');
     fireEvent.change(filterField, {target: { value: 'oo' }});
@@ -138,10 +138,10 @@ describe('Requisite 3', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('should have the column selection filter', () => {
-    const { getByTestId } = renderApp();
+  test('should have the column selection filter', async () => {
+    const { findByTestId } = renderApp();
 
-    const columnFilter = getByTestId('column-filter');
+    const columnFilter = await findByTestId('column-filter');
 
     expect(columnFilter).toHaveProperty('nodeName', 'SELECT');
 
@@ -163,10 +163,10 @@ describe('Requisite 3', () => {
     expect(foundColumnFilterArray).toEqual(expect.arrayContaining(expectedColumnFilters));
   })
 
-  test('should have the comparison selection filter', () => {
-    const { getByTestId } = renderApp();
+  test('should have the comparison selection filter', async () => {
+    const { findByTestId } = renderApp();
 
-    const comparisonFilter = getByTestId('comparison-filter');
+    const comparisonFilter = await findByTestId('comparison-filter');
 
     expect(comparisonFilter).toHaveProperty('nodeName', 'SELECT');
 
@@ -188,29 +188,29 @@ describe('Requisite 3', () => {
 
   })
 
-  test('should have the value input filter', () => {
-    const { getByTestId } = renderApp();
+  test('should have the value input filter', async () => {
+    const { findByTestId } = renderApp();
 
-    const valueFilter = getByTestId('value-filter');
+    const valueFilter = await findByTestId('value-filter');
 
     expect(valueFilter).toHaveProperty('nodeName', 'INPUT');
   });
   
-  test('should have the filter button', () => {
-    const { getByTestId } = renderApp();
+  test('should have the filter button', async () => {
+    const { findByTestId } = renderApp();
 
-    const buttonFilter = getByTestId('button-filter');
+    const buttonFilter = await findByTestId('button-filter');
 
     expect(buttonFilter).toHaveProperty('nodeName', 'BUTTON');
   })
 
   test('should filter with less than', async () => {
-    const { getByTestId, findAllByRole } = renderApp();
+    const { findByTestId, findAllByRole } = renderApp();
 
-    const columnFilter = getByTestId('column-filter');
-    const comparisonFilter = getByTestId('comparison-filter');
-    const valueFilter = getByTestId('value-filter');
-    const buttonFilter = getByTestId('button-filter');
+    const columnFilter = await findByTestId('column-filter');
+    const comparisonFilter = await findByTestId('comparison-filter');
+    const valueFilter = await findByTestId('value-filter');
+    const buttonFilter = await findByTestId('button-filter');
 
     fireEvent.change(columnFilter, {target: { value: "surface_water" }});
     fireEvent.change(comparisonFilter, {target: { value: "menor que" }});
@@ -224,12 +224,12 @@ describe('Requisite 3', () => {
   })
 
   test('should filter with greather than', async () => {
-    const { getByTestId, findAllByRole } = renderApp();
+    const { findByTestId, findAllByRole } = renderApp();
 
-    const columnFilter = getByTestId('column-filter');
-    const comparisonFilter = getByTestId('comparison-filter');
-    const valueFilter = getByTestId('value-filter');
-    const buttonFilter = getByTestId('button-filter');
+    const columnFilter = await findByTestId('column-filter');
+    const comparisonFilter = await findByTestId('comparison-filter');
+    const valueFilter = await findByTestId('value-filter');
+    const buttonFilter = await findByTestId('button-filter');
 
     fireEvent.change(columnFilter, {target: { value: "diameter" }});
     fireEvent.change(comparisonFilter, {target: { value: "maior que" }});
@@ -242,12 +242,12 @@ describe('Requisite 3', () => {
   })
 
   test('should filter with equal to', async () => {
-    const { getByTestId, findAllByRole, findByText } = renderApp();
+    const { findByTestId, findAllByRole, findByText } = renderApp();
     
-    const columnFilter = getByTestId('column-filter');
-    const comparisonFilter = getByTestId('comparison-filter');
-    const valueFilter = getByTestId('value-filter');
-    const buttonFilter = getByTestId('button-filter');
+    const columnFilter = await findByTestId('column-filter');
+    const comparisonFilter = await findByTestId('comparison-filter');
+    const valueFilter = await findByTestId('value-filter');
+    const buttonFilter = await findByTestId('button-filter');
 
     fireEvent.change(columnFilter, {target: { value: "population" }});
     fireEvent.change(comparisonFilter, {target: { value: "igual a" }});
@@ -272,10 +272,10 @@ describe('Requisite 3', () => {
 })
 
 describe('Requisite 4', () => {
-  test('check avaiable filters', () => {
-    const { getByTestId } = renderApp();
+  test('check avaiable filters', async () => {
+    const { findByTestId } = renderApp();
 
-    const columnFilter = getByTestId('column-filter');
+    const columnFilter = await findByTestId('column-filter');
 
     expect(columnFilter.children).toHaveLength(3);
 
@@ -290,30 +290,13 @@ describe('Requisite 4', () => {
 
     expect(foundColumnFilterArray).toEqual(expect.arrayContaining(expectedColumnFilters));
   })
-
-  test('should not accept to filter the same column twice', () => {
-    const { getByTestId } = renderApp();
-
-    const columnFilter = getByTestId('column-filter');
-    const comparisonFilter = getByTestId('comparison-filter');
-    const valueFilter = getByTestId('value-filter');
-    const buttonFilter = getByTestId('button-filter');
-
-    fireEvent.change(columnFilter, {target: { value: "surface_water" }});
-    fireEvent.change(comparisonFilter, {target: { value: "menor que" }});
-    fireEvent.change(valueFilter, {target: { value: '10' }});
-    // fireEvent.click(buttonFilter);
-
-    expect(store.getState().filters.filterByNumericValues).toHaveLength(3);
-  })
-
 })
 
 describe('Requisite 5', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
-    expect(selectedFilters).toHaveLength(3);
+    expect(store.getState().filters.filterByNumericValues).toHaveLength(3);
   });
 
   test('each filter should have a X button that removes the filter', async () => {
@@ -359,12 +342,18 @@ describe('Requisite 6', () => {
     };
     sortedPlanets = sortedPlanets.sort((a, b) => a - b);
 
-    const { getByTestId, findAllByRole } = renderApp();
-    const columnSort = getByTestId('column-sort');
-    const SortButton = getByTestId('column-sort-button');
+    const { findByTestId, findAllByTestId, findAllByRole } = renderApp();
+    const columnSort = await findByTestId('column-sort');
+    const sortButton = await findByTestId('column-sort-button');
+    const sortInput = await findAllByTestId('column-sort-input');
 
     fireEvent.change(columnSort, {target: { value: 'diameter' }})
-    fireEvent.click(SortButton);
+
+    const ascInput = sortInput.filter((input) => input.value == `DESC` )[0];
+
+    fireEvent.click(ascInput);
+    
+    await fireEvent.click(sortButton);
 
     const rows = await findAllByRole('row');
     let appPlanetList = [];
@@ -373,12 +362,6 @@ describe('Requisite 6', () => {
     }
     appPlanetList.shift();
 
-    console.log(store.getState().filters)
-
-    // expect(appPlanetList).toEqual(sortedPlanets);
-
-    // expect(store.getState().filters.order.column).toEqual('diameter');
-    // expect(store.getState().filters.order.sort).toEqual('ASC');
-
+    expect(appPlanetList).toEqual(sortedPlanets.reverse());
   })
 });
