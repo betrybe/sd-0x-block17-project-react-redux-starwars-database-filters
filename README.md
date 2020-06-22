@@ -36,6 +36,8 @@ Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida 
 
 O campo de texto deve possuir a propriedade `data-testid='name-filter'` para que a avaliação automatizada funcione.
 
+![image](search.gif)
+
 ### 3 - Sua página deve ter um filtro para valores numéricos
 
 Ele funcionará com três seletores:
@@ -70,6 +72,7 @@ Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. N
 }
 ```
 
+
 ### 4 - Sua página deverá ser carregada com somente um filtro de valores numéricos
 
 Caso um filtro seja totalmente preenchido, um novo filtro de valores numéricos deve ser carregado. Este novo filtro não deve incluir quaisquer colunas que já tenham sido selecionadas em filtros de valores numéricos anteriores. Caso todas as colunas já tenham sido inclusas em filtros anteriores, não deve ser carregado um novo filtro. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
@@ -103,6 +106,8 @@ Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior 
 
 A coluna que este filtro selecionava deve passar a ficar disponível nos dropdowns dos demais filtros já presentes na tela. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. Cada filtro deve possuir a propriedade `data-testid='filter'`, com um `button` em seu interior com o texto `X`.
 
+![image](filters.gif)
+
 ## BÔNUS
 
 ### 6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente
@@ -127,6 +132,8 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 Essa ordenação deve ser feita via filtro: um dropdown selecionará a coluna a basear a ordenação e um par de radio buttons determinará se esta é ascendente ou descendente.
 
 O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-sort'`, com as opções das colunas escolhíveis em seu interior. Deve haver também, dois `inputs` de tipo `radio`, com propriedade `data-testid='column-sort-input'`, para definir o sentido da ordenação (com `value` sendo `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
+
+![image](order.gif)
 
 ---
 
