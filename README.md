@@ -1,13 +1,12 @@
 # Boas vindas ao repositório do projeto de StarWars Datatable Filters em React com Redux!
 
-
 Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
 
 Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir deste repositório, utilizando uma branch específica e um _Pull Request_ para colocar seus códigos.
 
 ## O que deverá ser desenvolvido
 
-Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá de uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi-trybe.herokuapp.com/api). Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
+Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá em uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi-trybe.herokuapp.com/api). Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
 
 ## Desenvolvimento
 
@@ -23,7 +22,7 @@ A tabela deve ter uma primeira linha com os headers e as demais com as informaç
 
 ### 2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado
 
-Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: { filterByName: { name } }`. Por exemplo:
+Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: { filterByName: { name } }`. É muito importante que `filterByName` esteja dentro de `filters`, como no exemplo a seguir:
 
 ```javascript
 {
@@ -50,7 +49,7 @@ A combinação desses três seletores deve filtrar os dados da tabela de acordo 
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Por exemplo:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Para que não haja problemas com o avaliador o estado inicial da chave `filterByNumericValues` deve ser um array vazio, `[]`. Veja um exemplo de como o estado deve ficar quando uma filtragem for feita:
 
 ```javascript
 {
@@ -73,9 +72,9 @@ Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. N
 
 ### 4 - Sua página deverá ser carregada com somente um filtro de valores numéricos
 
-Caso um filtro seja totalmente preenchido, um novo filtro de valores numéricos deve ser carregado. Este novo filtro não deve incluir quaisquer colunas que já tenham sido selecionadas em filtros de valores numéricos anteriores. Caso todas as colunas já tenham sido inclusas em filtros anteriores, não deve ser carregado um novo filtro. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
+Após clicar no botão com o data-testid `button-filter`, o filtro de valores númericos deve ser atualizado, sendo que no dropdown de colunas não deve mais haver a coluna que já havia sido selecionada. Caso todas as colunas já tenham sido incluidas em filtros anteriores, ao atualizar o filtro nenhuma das colunas devem estar disponíveis. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
 
-Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior que | 100000`. Um segundo filtro deve aparecer após essas seleções serem todas feitas e, no primeiro dropdown deste segundo filtro, a opção `population` deve estar ausente. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
+Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior que | 100000`. O filtro deve atualizado após o botão com o data-testid `button-filter` ser clicado e, no primeiro dropdown deste filtro, a opção `population` deve estar ausente. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
 
 ```javascript
 {
