@@ -18,7 +18,7 @@ Este repositório já contém um _template_ de uma aplicação React criado e co
 
 A tabela deve ser renderizada por um componente chamado `<Table />`. Os dados recebidos da API devem ser salvos num campo chamado `data` do `store` e é daí que a tabela deve lê-los. A requisição deve ser feita num componente separado do componente da tabela.
 
-A tabela deve ter uma primeira linha com os headers e as demais com as informações de cada campo.
+A tabela deve ter uma primeira linha com os headers e as demais com as informações de cada campo. Essa linha será  considerada nos testes, então caso um teste busque por oito linhas na tabela, serão sete linhas com as informações sobre os planetas e uma referente aos headers.
 
 ### 2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado
 
