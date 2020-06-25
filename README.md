@@ -130,6 +130,20 @@ O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-
 
 ---
 
+### Implementações técnicas
+
+Algumas coisas devem seguir um padrão pré-estabelecido para que os teste de correção funcionem corretamente.
+
+#### Provider
+
+É preciso que o `store` seja provido para a aplicação no `index.js`. Caso contrário não será possível realizar os testes, pois como você viu para testar uma aplicação que utiliza **Redux** é necessário prover a aplicação um no store, esse que seja possível manipular.
+
+#### Reducers
+
+Nos testes, para a criação do `store`, é utilizado o `reducer` que você desenvolveu, então para que os testes ocorram como o previsto é preciso que seu `reducer` final seja exportado de `src/reducers/index.js`, pois é desse caminho que o arquivo de testes estará importando o seu `reducer`.
+
+---
+
 ## Instruções para entregar seu projeto:
 
 ### ANTES DE COMEÇAR A DESENVOLVER:
