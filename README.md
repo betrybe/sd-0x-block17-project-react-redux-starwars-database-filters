@@ -49,7 +49,7 @@ A combinação desses três seletores deve filtrar os dados da tabela de acordo 
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Para que não haja problemas com o avaliador o estado inicial da chave `filterByNumericValues` deve ser um array vazio, `[]`. Veja um exemplo de como o estado deve ficar quando uma filtragem for feita:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Tenha em mente que a avaliação automatizada exige que o estado inicial da chave `filterByNumericValues` seja um array vazio, `[]`. Veja um exemplo de como o estado deve ficar quando uma filtragem for feita:
 
 ```javascript
 {
@@ -72,9 +72,9 @@ Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. N
 
 ### 4 - Sua página deverá ser carregada com somente um filtro de valores numéricos
 
-Após clicar no botão com o data-testid `button-filter`, o filtro de valores númericos deve ser atualizado, sendo que no dropdown de colunas não deve mais haver a coluna que já havia sido selecionada. Caso todas as colunas já tenham sido incluidas em filtros anteriores, ao atualizar o filtro nenhuma das colunas devem estar disponíveis. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
+Após clicar no botão com o data-testid `button-filter`, sua aplicação deve permitir que quem a usa adicione um novo filtro numérico sem que precise deletar o filtro anterior. Ou seja: dado que você usa três elementos para configurar o seu filtro numérico, após clicar no botão esses três elementos devem permanecer na tela e funcionais na filtragem da tabela, mas três novos elementos devem ser adicionados para que, assim, quem usa pode selecionar um novo filtro numérico. Além disso, no dropdown de colunas desse novo filtro não deve mais haver a coluna que já foi selecionada no filtro anterior. Caso todas as colunas já tenham sido incluídas em filtros anteriores, ao atualizar o filtro nenhuma das colunas devem estar disponíveis. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
 
-Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior que | 100000`. O filtro deve atualizado após o botão com o data-testid `button-filter` ser clicado e, no primeiro dropdown deste filtro, a opção `population` deve estar ausente. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
+Por exemplo: imagine que você selecionou no primeiro filtro numérico as seguintes seleções: `population | maior que | 100000`. Após clicar no botão com data-testid `button-filter` deve ser possível adicionar um segundo filtro, além deste. No dropdown desse novo filtro a se adicionar, a opção `population` não deve aparecer. Em resumo, seus filtros numéricos não podem repetir as colunas que selecionam. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
 
 ```javascript
 {
@@ -132,15 +132,15 @@ O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-
 
 ### Implementações técnicas
 
-Algumas coisas devem seguir um padrão pré-estabelecido para que os teste de correção funcionem corretamente.
+Algumas coisas devem seguir um padrão pré-estabelecido para que a avaliação automatizada aprove a implementação.
 
 #### Provider
 
-É preciso que o `store` seja provido para a aplicação no `index.js`. Caso contrário não será possível realizar os testes, pois como você viu para testar uma aplicação que utiliza **Redux** é necessário prover a aplicação um no store, esse que seja possível manipular.
+É preciso que o `store` seja provido para a aplicação no `index.js`. Caso contrário não será possível realizar os testes, pois como você viu para testar uma aplicação que utiliza **Redux** é necessário que os testes provejam à aplicação um store próprio, substituindo um que deve ser declarado no `index.js`.
 
 #### Reducers
 
-Nos testes, para a criação do `store`, é utilizado o `reducer` que você desenvolveu, então para que os testes ocorram como o previsto é preciso que seu `reducer` final seja exportado de `src/reducers/index.js`, pois é desse caminho que o arquivo de testes estará importando o seu `reducer`.
+Nos testes, para a criação do `store`, é utilizado o `reducer` que você desenvolveu, então para que os testes ocorram como o previsto é preciso que seu `reducer` final seja exportado de `src/reducers/index.js`, pois é desse caminho que o arquivo de testes fará a importação dele.
 
 ---
 
