@@ -6,7 +6,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 ## O que deverá ser desenvolvido
 
-Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá de uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi-trybe.herokuapp.com/api). Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
+Você criará um projeto em React utilizando Redux para controle de estado. A aplicação consistirá em uma tabela com informações acerca de todos os planetas existentes no universo fictício da série _Star Wars_. A tabela será alimentada com dados retornados de uma [API](https://swapi-trybe.herokuapp.com/api). Haverá, também, vários filtros que permitirão a quem usa selecionar e encontrar com facilidade a informação desejada.
 
 ## Desenvolvimento
 
@@ -18,11 +18,11 @@ Este repositório já contém um _template_ de uma aplicação React criado e co
 
 A tabela deve ser renderizada por um componente chamado `<Table />`. Os dados recebidos da API devem ser salvos num campo chamado `data` do `store` e é daí que a tabela deve lê-los. A requisição deve ser feita num componente separado do componente da tabela.
 
-A tabela deve ter uma primeira linha com os headers e as demais com as informações de cada campo.
+A tabela deve ter uma primeira linha com os headers e as demais com as informações de cada campo. Essa linha será considerada nos testes, então caso um teste busque por oito linhas na tabela, serão sete linhas com as informações sobre os planetas e uma referente aos headers.
 
 ### 2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado
 
-Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: { filterByName: { name } }`. Por exemplo:
+Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida que o nome é digitado, sem ter que apertar um botão para efetuar a filtragem. Por exemplo, se digitar "Tatoo", o planeta "Tatooine" deve ser exibido. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação e o texto digitado deve ser salvo num campo `filters: { filterByName: { name } }`. É muito importante que `filterByName` esteja dentro de `filters`, como no exemplo a seguir:
 
 ```javascript
 {
@@ -49,7 +49,7 @@ A combinação desses três seletores deve filtrar os dados da tabela de acordo 
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Por exemplo:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Tenha em mente que a avaliação automatizada exige que o estado inicial da chave `filterByNumericValues` seja um array vazio, `[]`. Veja um exemplo de como o estado deve ficar quando uma filtragem for feita:
 
 ```javascript
 {
@@ -72,9 +72,9 @@ Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. N
 
 ### 4 - Sua página deverá ser carregada com somente um filtro de valores numéricos
 
-Caso um filtro seja totalmente preenchido, um novo filtro de valores numéricos deve ser carregado. Este novo filtro não deve incluir quaisquer colunas que já tenham sido selecionadas em filtros de valores numéricos anteriores. Caso todas as colunas já tenham sido inclusas em filtros anteriores, não deve ser carregado um novo filtro. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
+Após clicar no botão com o data-testid `button-filter`, sua aplicação deve permitir que quem a usa adicione um novo filtro numérico sem que precise deletar o filtro anterior. Ou seja: dado que você usa três elementos para configurar o seu filtro numérico, após clicar no botão esses três elementos devem permanecer na tela e funcionais na filtragem da tabela, mas três novos elementos devem ser adicionados para que, assim, quem usa pode selecionar um novo filtro numérico. Além disso, no dropdown de colunas desse novo filtro não deve mais haver a coluna que já foi selecionada no filtro anterior. Caso todas as colunas já tenham sido incluídas em filtros anteriores, ao atualizar o filtro nenhuma das colunas devem estar disponíveis. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
 
-Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior que | 100000`. Um segundo filtro deve aparecer após essas seleções serem todas feitas e, no primeiro dropdown deste segundo filtro, a opção `population` deve estar ausente. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
+Por exemplo: imagine que você selecionou no primeiro filtro numérico as seguintes seleções: `population | maior que | 100000`. Após clicar no botão com data-testid `button-filter` deve ser possível adicionar um segundo filtro, além deste. No dropdown desse novo filtro a se adicionar, a opção `population` não deve aparecer. Em resumo, seus filtros numéricos não podem repetir as colunas que selecionam. Se no segundo filtro fosse selecionado `diameter | menor que | 8000`, o estado ficaria assim:
 
 ```javascript
 {
@@ -127,6 +127,20 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 Essa ordenação deve ser feita via filtro: um dropdown selecionará a coluna a basear a ordenação e um par de radio buttons determinará se esta é ascendente ou descendente.
 
 O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-sort'`, com as opções das colunas escolhíveis em seu interior. Deve haver também, dois `inputs` de tipo `radio`, com propriedade `data-testid='column-sort-input'`, para definir o sentido da ordenação (com `value` sendo `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
+
+---
+
+### Implementações técnicas
+
+Algumas coisas devem seguir um padrão pré-estabelecido para que a avaliação automatizada aprove a implementação.
+
+#### Provider
+
+É preciso que o `store` seja provido para a aplicação no `index.js`. Caso contrário não será possível realizar os testes, pois como você viu para testar uma aplicação que utiliza **Redux** é necessário que os testes provejam à aplicação um store próprio, substituindo um que deve ser declarado no `index.js`.
+
+#### Reducers
+
+Nos testes, para a criação do `store`, é utilizado o `reducer` que você desenvolveu, então para que os testes ocorram como o previsto é preciso que seu `reducer` final seja exportado de `src/reducers/index.js`, pois é desse caminho que o arquivo de testes fará a importação dele.
 
 ---
 
