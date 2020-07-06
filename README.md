@@ -36,6 +36,8 @@ Ele deve atualizar a tabela com os planetas que se encaixam no filtro à medida 
 
 O campo de texto deve possuir a propriedade `data-testid='name-filter'` para que a avaliação automatizada funcione.
 
+![image](searchHQ.gif)
+
 ### 3 - Sua página deve ter um filtro para valores numéricos
 
 Ele funcionará com três seletores:
@@ -70,6 +72,7 @@ Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. N
 }
 ```
 
+
 ### 4 - Sua página deverá ser carregada com somente um filtro de valores numéricos
 
 Após clicar no botão com o data-testid `button-filter`, sua aplicação deve permitir que quem a usa adicione um novo filtro numérico sem que precise deletar o filtro anterior. Ou seja: dado que você usa três elementos para configurar o seu filtro numérico, após clicar no botão esses três elementos devem permanecer na tela e funcionais na filtragem da tabela, mas três novos elementos devem ser adicionados para que, assim, quem usa pode selecionar um novo filtro numérico. Além disso, no dropdown de colunas desse novo filtro não deve mais haver a coluna que já foi selecionada no filtro anterior. Caso todas as colunas já tenham sido incluídas em filtros anteriores, ao atualizar o filtro nenhuma das colunas devem estar disponíveis. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação.
@@ -103,6 +106,8 @@ Por exemplo: imagine que você selecionou no primeiro filtro numérico as seguin
 
 A coluna que este filtro selecionava deve passar a ficar disponível nos dropdowns dos demais filtros já presentes na tela. Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. Cada filtro deve possuir a propriedade `data-testid='filter'`, com um `button` em seu interior com o texto `X`.
 
+![image](filtersHQ.gif)
+
 ## BÔNUS
 
 ### 6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente
@@ -127,6 +132,8 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 Essa ordenação deve ser feita via filtro: um dropdown selecionará a coluna a basear a ordenação e um par de radio buttons determinará se esta é ascendente ou descendente.
 
 O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-sort'`, com as opções das colunas escolhíveis em seu interior. Deve haver também, dois `inputs` de tipo `radio`, com propriedade `data-testid='column-sort-input'`, para definir o sentido da ordenação (com `value` sendo `ASC` ou `DESC`) e um botão para submeter a ordenação, com uma tag `button` e a propriedade `data-testid='column-sort-button'`.
+
+![image](orderHQ.gif)
 
 ---
 
