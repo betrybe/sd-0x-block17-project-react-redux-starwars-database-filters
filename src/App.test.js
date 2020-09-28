@@ -40,12 +40,12 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('it calls SWAPI', () => {
+  test('Faz a chamada para a API (SWAPI)', () => {
     renderApp();
     expect(fetch).toHaveBeenCalled();
   });
 
-  test('it uses SWAPI data', async () => {
+  test('Usa os dados (data) da API SWAPI', async () => {
     const { findByText, findAllByText } = renderApp();
     const planets = testData.results;
     for (let planetIndex = 0; planetIndex < planets.length; planetIndex += 1) {
@@ -71,13 +71,13 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
     }
   });
 
-  test('it renders a table with 13 columns', async () => {
+  test('Mostra um `<table>` com 13 colunas', async () => {
     const { findAllByRole } = renderApp();
     const tableHeaders = await findAllByRole('columnheader');
     expect(tableHeaders).toHaveLength(13);
   });
 
-  test('it renders a table with 11 rows', async () => {
+  test('Mostra um `<table>` com 11 linhas', async () => {
     const { findAllByRole, findByText } = renderApp();
     await findByText(testData.results[0].name);
     const tableRows = await findAllByRole('row');
@@ -89,13 +89,13 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('should have a input field for name filters', async () => {
+  test('Precisa existir um campo de texto `<input>` para filtrar por nome', async () => {
     const { findByTestId } = renderApp();
     const filterField = await findByTestId('name-filter');
     expect(filterField).toBeInTheDocument();
   });
 
-  test('input filter should change results', async () => {
+  test('Alterações no termo do filtro de nome, devem alterar os resultados', async () => {
     const { findAllByRole, findByTestId, findByText } = renderApp();
     const filterField = await findByTestId('name-filter');
 
@@ -119,7 +119,7 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
     fireEvent.change(filterField, { target: { value: '' } });
   });
 
-  test('should change store filter values', async () => {
+  test('Precisa alterar os valores do store', async () => {
     const { findByTestId, store } = renderApp();
     const filterField = await findByTestId('name-filter');
     fireEvent.change(filterField, { target: { value: 'o' } });
@@ -135,7 +135,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('should have the column selection filter', async () => {
+  test('Precisa existir uma tag `<select />` para filtrar as colunas', async () => {
     const { findByTestId } = renderApp();
 
     const columnFilter = await findByTestId('column-filter');
@@ -163,7 +163,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(foundColumnFilterArray).toEqual(expect.arrayContaining(expectedColumnFilters));
   });
 
-  test('should have the comparison selection filter', async () => {
+  test('Precisa existir um `<select>` de comparação para o filtro', async () => {
     const { findByTestId } = renderApp();
 
     const comparisonFilter = await findByTestId('comparison-filter');
@@ -189,7 +189,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(foundComparisonFilterArray).toEqual(expect.arrayContaining(expectedColumnComparisons));
   });
 
-  test('should have the value input filter', async () => {
+  test('Precisa existir um campo de texto `<input />` para o filtro', async () => {
     const { findByTestId } = renderApp();
 
     const valueFilter = await findByTestId('value-filter');
@@ -197,7 +197,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(valueFilter).toHaveProperty('nodeName', 'INPUT');
   });
 
-  test('should have the filter button', async () => {
+  test('Precisa existir um botão `<button>` de filtro', async () => {
     const { findByTestId } = renderApp();
 
     const buttonFilter = await findByTestId('button-filter');
@@ -205,7 +205,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(buttonFilter).toHaveProperty('nodeName', 'BUTTON');
   });
 
-  test('should filter with less than', async () => {
+  test('Precisa filtrar com `less than`', async () => {
     const { findByTestId, findAllByRole, store } = renderApp();
 
     const columnFilter = await findByTestId('column-filter');
@@ -227,7 +227,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(store.getState().filters.filterByNumericValues).toEqual(expectedFilters);
   });
 
-  test('should filter with greather than', async () => {
+  test('Precisa filtrar com `greather than`', async () => {
     const initialState = getStore().getState();
     const initial = {
       ...initialState,
@@ -263,7 +263,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(store.getState().filters.filterByNumericValues).toEqual(expectedFilters);
   });
 
-  test('should filter with equal to', async () => {
+  test('Precisa filtrar com `equal to`', async () => {
     const initialState = getStore().getState();
 
     const initial = {
@@ -311,7 +311,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 });
 
 describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
-  test('check avaiable filters', async () => {
+  test('Verificar os filtros disponíveis', async () => {
     const initialState = getStore().getState();
 
     const initial = {
@@ -351,7 +351,7 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
 });
 
 describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
-  test('should show the previously selected filters', async () => {
+  test('Precisa mostrar o último filtro selecionado', async () => {
     const initialState = getStore().getState();
 
     const initial = {
@@ -373,7 +373,7 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
     expect(selectedFilters).toHaveLength(3);
   });
 
-  test('each filter should have a X button that removes the filter', async () => {
+  test('Cada filtro precisa conter um botão X que remove o filtro', async () => {
     const initialState = getStore().getState();
 
     const initial = {
@@ -412,7 +412,7 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
 });
 
 describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
-  test('check planet table starting order', async () => {
+  test('Verificar a ordem inicial da tabela de planetas', async () => {
     let sortedPlanets = [];
 
     for (let index = 0; index < testData.results.length; index += 1) {
@@ -438,7 +438,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
     expect(store.getState().filters.order.sort).toEqual('ASC');
   });
 
-  test('change table order', async () => {
+  test('Mudar a ordem da tabela', async () => {
     let sortedPlanets = [];
 
     for (let index = 0; index < testData.results.length; index += 1) {
